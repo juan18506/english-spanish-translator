@@ -2,6 +2,8 @@
 
 const form = document.querySelector('form')
 const textAlert = document.querySelector('.alert')
+const changeButton = document.getElementById('change')
+const label = document.getElementById('label')
 
 form.addEventListener('submit', (e) => {
   e.preventDefault()
@@ -10,10 +12,11 @@ form.addEventListener('submit', (e) => {
     new FormData(e.target)
   )
 
-  const { englishText } = formData
-  if (!englishText) return
+  const { text } = formData
+  if (!text) return
 
-  translate(englishText)
+  const lang = label.innerHTML === 'English text' ? 'es' : 'en'
+  translate(text, lang)
     .then(translateObj => {
       const { translations } = translateObj
       if (!translations) {
@@ -21,19 +24,27 @@ form.addEventListener('submit', (e) => {
         textAlert.innerHTML = err
         return
       }
-      const translation = translateObj.translations[0].translation
+      const translation = translations[0].translation
       textAlert.innerHTML = translation
     })
 })
 
-async function translate(englishText) {
-  const res = await fetch('https://api.apilayer.com/language_translation/translate?target=es', {
+changeButton.addEventListener('click', () => {
+  console.log(label.innerHTML);
+  const labelText = label.innerHTML === 'English text' ? 'Spanish text' : 'English text'
+  label.innerHTML = labelText
+})
+
+async function translate(text, lang) {
+  const endpoint = `https://api.apilayer.com/language_translation/translate?target=${lang}`
+
+  const res = await fetch(endpoint, {
     method: 'POST',
     redirect: 'follow',
     headers: {
       'apikey': 'kfhSmhbYWughtB2ijpcCvsu1naCyMCGl',
     },
-    body: `${englishText}`,
+    body: `${text}`,
   })
 
   const translation = await res.json()
