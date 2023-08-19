@@ -1,7 +1,7 @@
 'use strict'
 
-const form = document.querySelector('form')
-const textAlert = document.querySelector('.alert')
+const form = document.getElementById('form')
+const textAlert = document.getElementById('alert')
 const changeButton = document.getElementById('change')
 const label = document.getElementById('label')
 
