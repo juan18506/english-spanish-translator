@@ -3,16 +3,13 @@
 const form = document.getElementById('form')
 const textAlert = document.getElementById('alert')
 const changeButton = document.getElementById('change')
+const textArea = document.getElementById('text')
 const label = document.getElementById('label')
 
 form.addEventListener('submit', (e) => {
   e.preventDefault()
 
-  const formData = Object.fromEntries(
-    new FormData(e.target)
-  )
-
-  const { text } = formData
+  const text = textArea.value
   if (!text) return
 
   const lang = label.innerHTML === 'English text' ? 'es' : 'en'
