@@ -30,7 +30,6 @@ form.addEventListener('submit', (e) => {
 })
 
 changeButton.addEventListener('click', () => {
-  console.log(label.innerHTML);
   const labelText = label.innerHTML === 'English text' ? 'Spanish text' : 'English text'
   label.innerHTML = labelText
 })
